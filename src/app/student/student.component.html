@@ -1,0 +1,36 @@
+<h2>การมีส่วนร่วมของผู้เรียนในบทเรียน</h2>
+
+<table border="0" cellpadding="6">
+    <thead>
+        <tr>
+            <th>รหัส</th>
+            <th>ชื่อ</th>
+            <th>นามสกุล</th>
+            <th>เปอร์เซนต์การมีส่วนร่วม</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (student of studentParticipation; track student.id) {
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
+            <td>{{ student.participationPercent }}%</td>
+            <td [width]="150">
+                <app-progress-bar 
+                    [progress]="student.participationPercent"
+                    [color]="'purple'"
+                    [height]="'15px'"
+                    [trackId]="student.id" 
+                    [showLabel]="true" 
+                    (progressChanged)="onProgressUpdate($event)">
+                </app-progress-bar>
+            </td>
+        </tr>
+        } @empty {
+        <tr>
+            <td colspan="4">ยังไม่มีข้อมูลการมีส่วนร่วมของผู้เรียน </td>
+        </tr>
+        }
+    </tbody>
+</table>
